@@ -91,7 +91,7 @@ class InstagramScraperController:
         Returns:
             PostModel: Structured data of the Instagram post.
         """
-
+        data = ''
         try:
             self.logger.set_trace_id(trace_id)
             result = self.scrap_service.scrape_page(
@@ -107,8 +107,9 @@ class InstagramScraperController:
             post_model = PostModel(
                 id=self.find_short_code(post_url),
                 post_type=data.get("type", 'GraphImage'),
-                likes=int(data.get("likes", 0)),
-                comments=int(data.get("comments", 0)),
+                likes=int(data.get("likes", 0) if data.get("likes", 0) else 0),
+                comments=int(data.get("comments", 0)
+                             if data.get("comments", 0) else 0),
                 is_video=True if data.get("type") == "video" else False,
                 owner_username=data.get("owner_username"),
                 batch_id=trace_id,
@@ -132,6 +133,7 @@ class InstagramScraperController:
 
             return post_model
         except Exception as e:
+            print(data)
             self.logger.error(ErrorModel(
                 'create_post', ErrorCode.FLASK_ERR_CREATE, traceback.format_exc()))
             print(traceback.format_exc())

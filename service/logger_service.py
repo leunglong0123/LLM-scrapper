@@ -13,8 +13,8 @@ load_dotenv()
 # logging_client = cloud_logging.Client()
 # logging_client.setup_logging()
 logger = logging.getLogger(__name__)
-logger.setLevel(os.getenv("LOGGING_LEVEL"))
-env = os.getenv("ENVIRONMENT")
+logger.setLevel(os.getenv("LOGGING_LEVEL",'INFO'))
+env = os.getenv("ENVIRONMENT",'LOCAL')
 
 
 class LoggerService():

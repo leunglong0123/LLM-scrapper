@@ -5,7 +5,7 @@ from datetime import datetime
 
 load_dotenv()
 
-DATE_FORMAT = os.environ['DATE_FORMAT']
+DATE_FORMAT = os.getenv('DATE_FORMAT', '%Y-%m-%dT%H:%M:%S')
 
 
 class AbstractModel():
