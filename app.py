@@ -1,5 +1,8 @@
-from flask import Flask, request, jsonify
 from controller.instagram_scrap import InstagramScraperController
+from flask import Flask, request, jsonify
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -42,4 +45,5 @@ def scrape_instagram_post():
 
 # Run the Flask application
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True if os.getenv("ENVIRONMENT")
+            == "LOCAL" else False, host="0.0.0.0",  port=8080)
