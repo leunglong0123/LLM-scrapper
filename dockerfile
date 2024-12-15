@@ -10,6 +10,14 @@ COPY . /app
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN playwright install
+
+RUN pip install playwright
+
+RUN python -m playwright install
+
+
+
 # Expose the port your app runs on
 EXPOSE 8080
 
